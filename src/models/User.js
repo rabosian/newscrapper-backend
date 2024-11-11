@@ -1,7 +1,7 @@
-import bcrypt from "bcryptjs";
-import mongoose from "mongoose";
-import jwt from "jsonwebtoken";
-import dotenv from "dotenv";
+import bcrypt from 'bcryptjs';
+import mongoose from 'mongoose';
+import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
 
 dotenv.config();
 
@@ -17,9 +17,9 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-userSchema.pre("save", async function (next) {
+userSchema.pre('save', async function (next) {
   // password가 없거나 password가 수정되지 않았을 때는 다음 미들웨어로 넘어감
-  if (!this.password || !this.isModified("password")) {
+  if (!this.password || !this.isModified('password')) {
     return next();
   } else {
     // password가 있을 때만 해싱
@@ -36,11 +36,11 @@ userSchema.pre("save", async function (next) {
 userSchema.methods.generateAuthToken = async function () {
   try {
     const token = jwt.sign({ _id: this._id }, SECRET_KEY, {
-      expiresIn: "48h",
+      expiresIn: '48h',
     });
     return token;
   } catch (error) {
-    throw new Error("Token generation failed");
+    throw new Error('Token generation failed');
   }
 };
 
@@ -53,5 +53,5 @@ userSchema.methods.toJSON = function () {
   return obj;
 };
 
-const User = mongoose.model("User", userSchema);
+const User = mongoose.model('User', userSchema);
 export default User;
