@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import cors from "cors";
 import dotenv from "dotenv";
+import indexRouter from "./src/routes/index.js";
 
 const app = express();
 
@@ -10,6 +11,8 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use("/api", indexRouter);
 
 // 환경변수 설정
 dotenv.config();
