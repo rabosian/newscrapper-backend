@@ -9,10 +9,16 @@ const SECRET_KEY = process.env.JWT_SECRET_KEY;
 
 const userSchema = new mongoose.Schema(
   {
-    name: { type: String, required: true },
+    name: { type: String, required: true, unique: true },
     email: { type: String, required: true, unique: true },
-    password: { type: String },
-    level: { type: String }, //default value should be defined.
+    password: {
+      type: String,
+      required: function () {
+        return !this.googleId;
+      },
+    },
+    googleId: { type: String },
+    level: { type: String, default: 'user' }, //확장성을 위해 level을 남김
   },
   { timestamps: true }
 );
