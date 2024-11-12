@@ -1,5 +1,12 @@
-import express from "express";
+import express from 'express';
+import {
+  loginWithEmail,
+  loginWithGoogle,
+} from '../controllers/authController.js';
 
-export const router = express.Router();
+const router = express.Router();
+
+router.post('/login', loginWithEmail);
+router.post('/google', loginWithGoogle);
 
 export default router;

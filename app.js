@@ -1,9 +1,9 @@
-import express from "express";
-import mongoose from "mongoose";
-import bodyParser from "body-parser";
-import cors from "cors";
-import dotenv from "dotenv";
-import indexRouter from "./src/routes/index.js";
+import express from 'express';
+import mongoose from 'mongoose';
+import bodyParser from 'body-parser';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import indexRouter from './src/routes/index.js';
 
 const app = express();
 
@@ -12,7 +12,7 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use("/api", indexRouter);
+app.use('/api', indexRouter);
 
 // 환경변수 설정
 dotenv.config();
@@ -20,15 +20,15 @@ dotenv.config();
 // MongoDB 연결
 mongoose
   .connect(process.env.DB_URI)
-  .then(() => console.log("Connected to MongoDB"))
-  .catch((err) => console.error("MongoDB connection error:", err));
+  .then(() => console.log('Connected to MongoDB'))
+  .catch((err) => console.error('MongoDB connection error:', err));
 
-// 에러 핸들링 미들웨어
+// 서버에러 핸들링 미들웨어
 app.use((err, req, res, next) => {
-  console.error("Error:", err);
+  console.error('Error:', err);
   res.status(500).json({
-    status: "error",
-    message: err.message || "Internal server error",
+    status: 'error',
+    message: err.message || 'BE:Internal server error occurred',
   });
 });
 
