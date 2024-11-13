@@ -1,8 +1,11 @@
 ### login with token
-`/user/me`
+`GET /user/me`
 
 ### login with email
-`/auth/login`
+`POST /auth/login`
 
 ### Google login
-`/auth/google`
+`POST /auth/google`
+
+### news API - main
+`GET /articles`
