@@ -21,7 +21,8 @@
     "express": "^4.21.1",
     "google-auth-library": "^9.14.2",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.8.1"
+    "mongoose": "^8.8.1",
+    "node-cron": "^3.0.3"
   },
   "devDependencies": {
     "nodemon": "^3.1.7"
