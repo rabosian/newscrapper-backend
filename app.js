@@ -41,7 +41,7 @@ app.listen(PORT, () => {
 });
 
 // 스케줄러
-cron.schedule('* */5 * * *', () => {
+cron.schedule('0 */5 * * *', () => {
   // every minute: '* * * * *'
   console.log('Every five hours');
   newsScheduler();
