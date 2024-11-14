@@ -4,6 +4,8 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import indexRouter from './src/routes/index.js';
+import cron from 'node-cron';
+import { newsScheduler } from './src/scheduler/newsScheduler.js';
 
 const app = express();
 
@@ -36,4 +38,11 @@ app.use((err, req, res, next) => {
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
+});
+
+// 스케줄러
+cron.schedule('* */5 * * *', () => {
+  // every minute: '* * * * *'
+  console.log('Every five hours');
+  newsScheduler();
 });
