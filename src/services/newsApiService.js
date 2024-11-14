@@ -10,10 +10,11 @@ export const newsAPI_Everything = async (req, res) => {
     let to = '2024-11-13';
     const URL = 'https://newsapi.org/v2/everything';
 
+    // 도메인 블랙리스트: bbc.co.uk
     const response = await axios.get(URL, {
       params: {
         apiKey: API_KEY,
-        domains: 'bloomberg.com,bbc.co.uk,techcrunch.com',
+        domains: 'bloomberg.com,techcrunch.com',
         from,
         to,
         sortBy: 'publishedAt',
