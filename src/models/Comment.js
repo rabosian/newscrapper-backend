@@ -16,7 +16,7 @@ const commentSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    like_count: {
+    like_count: { // 우선 카운트로 설정, 추후 시간되면 like table 따로 만들기
       type: Number,
       default: 0,
     },
