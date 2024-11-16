@@ -29,6 +29,7 @@ const commentSchema = new mongoose.Schema(
 commentSchema.methods.toJSON = function () {
   const obj = this._doc;
   delete obj.__v;
+  return obj
 };
 
 const Comment = mongoose.model('Comment', commentSchema);
