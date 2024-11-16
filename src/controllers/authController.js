@@ -3,6 +3,7 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import { OAuth2Client } from 'google-auth-library';
+import axios from 'axios';
 
 dotenv.config();
 
@@ -68,14 +69,22 @@ export const loginWithGoogle = async (req, res, next) => {
       });
     }
 
-    const googleClient = new OAuth2Client(GOOGLE_CLIENT_ID);
+    /*   토큰 값 가져올때 문제 발생시에 이 코드로 실행    */
+    // const googleClient = new OAuth2Client(GOOGLE_CLIENT_ID);
+    // const ticket = await googleClient.verifyIdToken({
+    //   idToken: credential,
+    //   audience: GOOGLE_CLIENT_ID,
+    // });
+    // const { email, name, sub: googleId } = ticket.getPayload();
 
-    const ticket = await googleClient.verifyIdToken({
-      idToken: credential,
-      audience: GOOGLE_CLIENT_ID,
-    });
-
-    const { email, name, sub: googleId } = ticket.getPayload();
+    // 구글버튼으로 새로 추가된 것 - 유저 인포 가져오기
+    const userInfo = await axios.get(
+      'https://www.googleapis.com/oauth2/v3/userinfo',
+      {
+        headers: { Authorization: `Bearer ${credential}` },
+      }
+    );
+    const { email, name, sub: googleId } = userInfo;
 
     let user = await User.findOne({ $or: [{ email }, { googleId }] });
 
@@ -85,6 +94,7 @@ export const loginWithGoogle = async (req, res, next) => {
         name,
         googleId,
       });
+
       await user.save();
     } else if (!user.googleId) {
       user.googleId = googleId; // (login with email 유저이면)이미 이메일로 가입한 유저이면 googleId 연동
