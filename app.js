@@ -6,6 +6,7 @@ import dotenv from 'dotenv';
 import indexRouter from './src/routes/index.js';
 import cron from 'node-cron';
 import { newsScheduler } from './src/scheduler/newsScheduler.js';
+import { cleanUpScheduler } from './src/scheduler/cleanUpScheduler.js';
 
 const app = express();
 
@@ -43,6 +44,14 @@ app.listen(PORT, () => {
 // 스케줄러
 cron.schedule('0 */5 * * *', () => {
   // every minute: '* * * * *'
+  // every 5 hours: '0 */5 * * *'
   console.log('Every five hours');
   newsScheduler();
+});
+
+// clean up 스케줄러
+cron.schedule('0 */4 * * *', () => {
+  // every minute: '* * * * *'
+  console.log('Every four hours');
+  cleanUpScheduler();
 });
