@@ -84,7 +84,7 @@ export const loginWithGoogle = async (req, res, next) => {
         headers: { Authorization: `Bearer ${credential}` },
       }
     );
-    const { email, name, sub: googleId } = userInfo;
+    const { email, name, sub: googleId } = userInfo.data;
 
     let user = await User.findOne({ $or: [{ email }, { googleId }] });
 
