@@ -3,11 +3,11 @@ import Comment from '../models/Comment.js';
 export const createComment = async (req, res) => {
   try {
     const { userId } = req;
-    const { articleId, content } = req.body;
+    const { articleId, contents } = req.body;
     const newComment = new Comment({
       userId,
       articleId,
-      content,
+      contents,
     });
     await newComment.save();
     res.status(200).json({ status: 'success' });
@@ -18,13 +18,14 @@ export const createComment = async (req, res) => {
 
 export const getCommentsByArticle = async (req, res) => {
   try {
-    const { articleId } = req.body;
+    const { articleId } = req.query;
     const commentList = await Comment.find({ articleId });
     res.status(200).json({ status: 'success', commentList });
   } catch (err) {
     res.status(400).json({ status: 'failed', error: err.message });
   }
 };
+
 export const deleteComment = async (req, res) => {
   try {
     const { id } = req.body;
