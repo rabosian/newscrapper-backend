@@ -13,7 +13,7 @@ export const createComment = async (req, res) => {
     await newComment.save();
     await Article.findByIdAndUpdate(
       articleId,
-      { $push: { comments: comment._id } },
+      { $push: { comments: newComment._id } },
       { new: true }
     );
     res.status(200).json({ status: 'success' });
