@@ -19,7 +19,7 @@ export const createComment = async (req, res) => {
 export const getCommentsByArticle = async (req, res) => {
   try {
     const { articleId } = req.query;
-    const commentList = await Comment.find({ articleId });
+    const commentList = await Comment.find({ articleId }).populate("userId");
     res.status(200).json({ status: 'success', commentList });
   } catch (err) {
     res.status(400).json({ status: 'failed', error: err.message });
