@@ -1,3 +1,4 @@
+import Article from '../models/Article.js';
 import Comment from '../models/Comment.js';
 
 export const createComment = async (req, res) => {
@@ -10,16 +11,22 @@ export const createComment = async (req, res) => {
       contents,
     });
     await newComment.save();
+    await Article.findByIdAndUpdate(
+      articleId,
+      { $push: { comments: comment._id } },
+      { new: true }
+    );
     res.status(200).json({ status: 'success' });
   } catch (err) {
     res.status(400).json({ status: 'failed', error: err.message });
   }
 };
 
+// no longer in use - comments will be populated in getArticle
 export const getCommentsByArticle = async (req, res) => {
   try {
     const { articleId } = req.query;
-    const commentList = await Comment.find({ articleId }).populate("userId");
+    const commentList = await Comment.find({ articleId }).populate('userId');
     res.status(200).json({ status: 'success', commentList });
   } catch (err) {
     res.status(400).json({ status: 'failed', error: err.message });
