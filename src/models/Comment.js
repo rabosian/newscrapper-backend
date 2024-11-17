@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import User from './User.js';
-import Article from './Article.js'
+import Article from './Article.js';
 
 const commentSchema = new mongoose.Schema(
   {
@@ -18,10 +18,11 @@ const commentSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    like_count: { // 우선 카운트로 설정, 추후 시간되면 like table 따로 만들기
-      type: Number,
-      default: 0,
-    },
+    likes: [
+      {
+        userId: { type: mongoose.ObjectId, ref: User, required: true },
+      },
+    ],
   },
   { timestamps: true }
 );
@@ -29,7 +30,7 @@ const commentSchema = new mongoose.Schema(
 commentSchema.methods.toJSON = function () {
   const obj = this._doc;
   delete obj.__v;
-  return obj
+  return obj;
 };
 
 const Comment = mongoose.model('Comment', commentSchema);

@@ -11,6 +11,10 @@ const articleSchema = new mongoose.Schema(
     category: { type: String, required: true }, // 한 뉴스에 카테고리가 여러개인 경우 Array 로 바꿔야함
     url: { type: String, required: true },
     urlToImage: { type: String, required: true },
+    comments: [{
+      type: mongoose.ObjectId,
+      ref: 'Comment'
+    }]
   },
   { timestamps: true }
 );
