@@ -4,8 +4,12 @@ import Article from './Article.js';
 
 const favoriteArticleSchema = new mongoose.Schema(
   {
-    user: { type: mongoose.ObjectId, ref: User },
-    article: { type: mongoose.ObjectId, ref: Article },
+    userId: { type: mongoose.ObjectId, ref: User },
+    articleList: [
+      {
+        articleId: { type: mongoose.ObjectId, ref: Article, required: true },
+      },
+    ],
     isDeleted: { type: Boolean, default: false },
   },
   { timestamps: true }
@@ -19,7 +23,11 @@ favoriteArticleSchema.methods.toJSON = function () {
   return obj;
 };
 
+<<<<<<< HEAD
 const favoriteArticle = mongoose.model(
+=======
+const FavoriteArticle = mongoose.model(
+>>>>>>> a7ab7ce (Model updated)
   'FavoriteArticle',
   favoriteArticleSchema
 );
