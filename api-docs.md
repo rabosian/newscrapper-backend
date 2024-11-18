@@ -9,3 +9,9 @@
 
 ### news API - main
 `GET /articles`
+
+### article comments
+`GET /comments`
+`POST /comments`
+`PUT /comments/:id`
+`DELETE /comments/:id`
