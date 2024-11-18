@@ -17,6 +17,10 @@ const articleSchema = new mongoose.Schema(
         ref: 'Comment',
       },
     ],
+    views: { // 조회수
+      type: Number,
+      default: 0,
+    },
   },
   { timestamps: true }
 );

@@ -31,8 +31,8 @@ export const updateComment = async (req, res) => {
     const findComment = await Comment.findById(id);
     if (!findComment) throw new Error('Comment not found');
 
-    // likes 업데이트, likeRequest=true 이면 like 수정 기능 작동
     if (likeRequest) {
+      // likes 업데이트, likeRequest=true 이면 like 수정 기능 작동
       const likedIndex = findComment.likes.findIndex((item) =>
         item.userId.equals(userId)
       );
@@ -41,18 +41,20 @@ export const updateComment = async (req, res) => {
       } else {
         findComment.likes.splice(likedIndex, 1);
       }
+      await findComment.save();
+      res.status(200).json({ status: 'success', findComment });
+    } else {
+      // contents 업데이트
+      if (contents) {
+        if (!findComment.userId.equals(userId))
+          throw new Error('Only comment creator can update');
+
+        findComment.contents = contents;
+        await findComment.save();
+        res.status(200).json({ status: 'success', findComment });
+      }
     }
-
-    // contents 업데이트
-    if (contents) {
-      if (!findComment.userId.equals(userId))
-        throw new Error('Only comment creator can update');
-
-      findComment.contents = contents;
-    }
-
-    await findComment.save();
-    res.status(200).json({ status: 'success', findComment });
+    return;
   } catch (err) {
     res.status(400).json({ status: 'failed', error: err.message });
   }
@@ -72,8 +74,10 @@ export const getCommentsByArticle = async (req, res) => {
       ...item._doc,
       totalLike: item._doc.likes.length,
     }));
-    
-    res.status(200).json({ status: 'success', commentList: updatedCommentList });
+
+    res
+      .status(200)
+      .json({ status: 'success', commentList: updatedCommentList });
   } catch (err) {
     res.status(400).json({ status: 'failed', error: err.message });
   }

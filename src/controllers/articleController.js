@@ -25,4 +25,17 @@ articleController.getArticles = async (req, res) => {
   }
 };
 
+articleController.updateArticleView = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const article = await Article.findById(id);
+    article.views += 1;
+
+    await article.save();
+    res.status(200).json({ status: 'success', article });
+  } catch (err) {
+    res.status(400).json({ status: 'Failed', error: err.message });
+  }
+};
+
 export default articleController;
