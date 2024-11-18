@@ -10,6 +10,9 @@
 ### news API - main
 `GET /articles`
 
+### update article total view
+`PUT /articles/view/:id`
+
 ### article comments
 `GET /comments`
 `POST /comments`
