@@ -23,11 +23,7 @@ favoriteArticleSchema.methods.toJSON = function () {
   return obj;
 };
 
-<<<<<<< HEAD
-const favoriteArticle = mongoose.model(
-=======
 const FavoriteArticle = mongoose.model(
->>>>>>> a7ab7ce (Model updated)
   'FavoriteArticle',
   favoriteArticleSchema
 );
