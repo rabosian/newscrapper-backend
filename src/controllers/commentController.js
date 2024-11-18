@@ -67,7 +67,13 @@ export const getCommentsByArticle = async (req, res) => {
         select: 'name',
       })
       .sort({ createdAt: -1 });
-    res.status(200).json({ status: 'success', commentList });
+
+    const updatedCommentList = commentList.map((item) => ({
+      ...item._doc,
+      totalLike: item._doc.likes.length,
+    }));
+    
+    res.status(200).json({ status: 'success', commentList: updatedCommentList });
   } catch (err) {
     res.status(400).json({ status: 'failed', error: err.message });
   }
