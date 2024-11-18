@@ -8,7 +8,7 @@ const articleSchema = new mongoose.Schema(
     summary: { type: String, required: true }, //this is description in NEWS Api
     deleteFlag: { type: Boolean, required: true, default: true },
     publishedAt: { type: Date, required: true },
-    category: { type: String, required: true }, // 한 뉴스에 카테고리가 여러개인 경우 Array 로 바꿔야함
+    category: { type: String, required: true },
     url: { type: String, required: true },
     urlToImage: { type: String, required: true },
     comments: [
