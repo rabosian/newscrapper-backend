@@ -76,8 +76,15 @@ export const getCommentsByArticle = async (req, res) => {
 export const deleteComment = async (req, res) => {
   try {
     const { id } = req.params;
-    const findComment = await Comment.findOneAndDelete(id);
+    const { userId } = req;
+
+    const findComment = await Comment.findById(id);
     if (!findComment) throw new Error('Comment not found');
+
+    if (!findComment.userId.equals(userId))
+      throw new Error('Only comment creator can delete');
+
+    await Comment.findByIdAndDelete(id);
     res.status(200).json({ status: 'success' });
   } catch (err) {
     res.status(400).json({ status: 'Failed', error: err.message });

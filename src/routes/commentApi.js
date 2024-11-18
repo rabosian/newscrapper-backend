@@ -10,7 +10,7 @@ import { authenticate } from '../controllers/authController.js';
 
 router.post('/', authenticate, createComment);
 router.get('/', getCommentsByArticle);
-router.put('/:id', updateComment);
-router.delete('/:id', deleteComment);
+router.put('/:id', authenticate, updateComment);
+router.delete('/:id', authenticate, deleteComment);
 
 export default router;
