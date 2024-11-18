@@ -17,7 +17,7 @@ const articleSchema = new mongoose.Schema(
         ref: 'Comment',
       },
     ],
-    totalViews: { // 조회수
+    views: { // 조회수
       type: Number,
       default: 0,
     },
