@@ -20,7 +20,7 @@ favoriteArticleSchema.methods.toJSON = function () {
 };
 
 const favoriteArticle = mongoose.model(
-  'favoriteArticle',
+  'FavoriteArticle',
   favoriteArticleSchema
 );
-export default favoriteArticle;
+export default FavoriteArticle;
