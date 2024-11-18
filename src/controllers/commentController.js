@@ -31,8 +31,8 @@ export const updateComment = async (req, res) => {
     const findComment = await Comment.findById(id);
     if (!findComment) throw new Error('Comment not found');
 
-    // likes 업데이트, likeRequest=true 이면 like 수정 기능 작동
     if (likeRequest) {
+      // likes 업데이트, likeRequest=true 이면 like 수정 기능 작동
       const likedIndex = findComment.likes.findIndex((item) =>
         item.userId.equals(userId)
       );
@@ -50,11 +50,11 @@ export const updateComment = async (req, res) => {
           throw new Error('Only comment creator can update');
 
         findComment.contents = contents;
+        await findComment.save();
+        res.status(200).json({ status: 'success', findComment });
       }
-
-      await findComment.save();
-      res.status(200).json({ status: 'success', findComment });
     }
+    return;
   } catch (err) {
     res.status(400).json({ status: 'failed', error: err.message });
   }
