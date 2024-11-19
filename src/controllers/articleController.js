@@ -5,14 +5,14 @@ const articleController = {};
 
 articleController.getArticles = async (req, res) => {
   try {
-    // 페이지네이션
-    const { page } = req.query;
-    let query = Article.find();
+    const { page, category } = req.query;
+    const condition = category ? { category } : {};
+    let query = Article.find(condition);
     let response = { status: 'success' };
 
     if (page) {
       query.skip((page - 1) * PAGE_SIZE).limit(PAGE_SIZE);
-      const totalArticleNum = await Article.find().countDocuments();
+      const totalArticleNum = await Article.find(condition).countDocuments();
       const totalPageNum = Math.ceil(totalArticleNum / PAGE_SIZE);
       response.totalPageNum = totalPageNum;
     }
@@ -22,6 +22,19 @@ articleController.getArticles = async (req, res) => {
     res.status(200).json(response);
   } catch (err) {
     res.status(500).json({ status: 'Failed', error: err.message });
+  }
+};
+
+articleController.updateArticleView = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const article = await Article.findById(id);
+    article.views += 1;
+
+    await article.save();
+    res.status(200).json({ status: 'success', article });
+  } catch (err) {
+    res.status(400).json({ status: 'Failed', error: err.message });
   }
 };
 
