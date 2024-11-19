@@ -84,20 +84,33 @@ export const loginWithGoogle = async (req, res, next) => {
         headers: { Authorization: `Bearer ${credential}` },
       }
     );
-    const { email, name, sub: googleId } = userInfo.data;
+
+    // 구글 프로필 이미지 가져오도록 추가함 - Google UserInfo 데이터
+    const { email, name, sub: googleId, picture } = userInfo.data;
+    // console.log('User Info:', userInfo.data); // 실제로 받아오는 데이터 확인
 
     let user = await User.findOne({ $or: [{ email }, { googleId }] });
 
     if (!user) {
+      // 새 사용자 생성
       user = new User({
         email,
         name,
         googleId,
+        picture, // 프로필 이미지 추가
       });
 
       await user.save();
-    } else if (!user.googleId) {
-      user.googleId = googleId; // (login with email 유저이면)이미 이메일로 가입한 유저이면 googleId 연동
+    } else {
+      // 기존 사용자 업데이트
+      if (!user.googleId) {
+        user.googleId = googleId; // (login with email 유저이면)이미 이메일로 가입한 유저이면 googleId 연동
+      }
+
+      // 프로필 이미지가 없을 경우 업데이트
+      if (!user.picture) {
+        user.picture = picture; // 기존 사용자의 프로필 이미지 업데이트
+      }
       await user.save();
     }
 

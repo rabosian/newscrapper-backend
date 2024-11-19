@@ -19,6 +19,7 @@ const userSchema = new mongoose.Schema(
     },
     googleId: { type: String },
     level: { type: String, default: 'user' }, //확장성을 위해 level을 남김
+    picture: { type: String, default: '' }, // 구글 프로필 이미지 가져오기
   },
   { timestamps: true }
 );
