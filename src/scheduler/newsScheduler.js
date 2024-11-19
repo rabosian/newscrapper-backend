@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 import axios from 'axios';
 import Article from '../models/Article.js';
+import { NEWS_DOMAINS } from '../utils/domains.js';
 dotenv.config();
 
 const API_KEY = process.env.NEWS_API_KEY;
@@ -40,7 +41,7 @@ export const newsScheduler = async () => {
       params: {
         apiKey: API_KEY,
         q: category,
-        domains: 'bloomberg.com,techcrunch.com',
+        domains: NEWS_DOMAINS,
         from,
         to,
         sortBy: 'relevancy',
