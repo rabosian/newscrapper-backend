@@ -14,7 +14,8 @@ export const newsAPI_Everything = async (req, res) => {
     const response = await axios.get(URL, {
       params: {
         apiKey: API_KEY,
-        domains: 'bloomberg.com,techcrunch.com',
+        domains:
+          'bloomberg.com,techcrunch.com,theverge.com,wired.com,thenextweb.com,arstechnica.com,engadget.com,bbc.com,cnn.com,forbes.com,nytimes.com,wsj.com',
         from,
         to,
         sortBy: 'publishedAt',
