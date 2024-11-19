@@ -30,12 +30,12 @@ export const newsScheduler = async () => {
   if (articleCount > 1000) return; // 1000개 뉴스가 데이터베이스에 저장되면 newsScheduler 작동 안함
   // 오래된뉴스 삭제될때까지
 
-  // DB에 있는 모든 기사들을 불러오기
-  const existingArticles = await Article.find({});
-
   // 카테고리 하나씩 읽어오기
   for (let i = 0; i < categoryList.length; i++) {
     const category = categoryList[i];
+
+    // DB에 있는 모든 기사들을 불러오기
+    const existingArticles = await Article.find({});
 
     const response = await axios.get(URL, {
       params: {
