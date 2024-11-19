@@ -10,14 +10,15 @@ const articleSchema = new mongoose.Schema(
     publishedAt: { type: Date, required: true },
     category: { type: String, required: true },
     url: { type: String, required: true },
-    urlToImage: { type: String, required: true },
+    urlToImage: { type: String },
     comments: [
       {
         type: mongoose.ObjectId,
         ref: 'Comment',
       },
     ],
-    views: { // 조회수
+    views: {
+      // 조회수
       type: Number,
       default: 0,
     },
