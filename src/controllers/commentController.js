@@ -66,7 +66,7 @@ export const getCommentsByArticle = async (req, res) => {
     const commentList = await Comment.find({ articleId })
       .populate({
         path: 'userId',
-        select: 'name',
+        select: 'name picture',
       })
       .sort({ createdAt: -1 });
 
