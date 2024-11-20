@@ -23,7 +23,7 @@ const commentSchema = new mongoose.Schema(
         userId: { type: mongoose.ObjectId, ref: User, required: true },
       },
     ],
-    isModified: {
+    isEdited: {
       type: Boolean,
       default: false
     }
