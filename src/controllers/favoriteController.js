@@ -11,6 +11,7 @@ export const addFavoriteArticle = async (req, res) => {
       favorites = new FavoriteArticle({ userId, articleList: [articleId] });
       await favorites.save();
       res.status(200).json({ status: 'success', favorites });
+      return;
     }
 
     // article already exists > return error
@@ -30,7 +31,7 @@ export const getFavoriteArticle = async (req, res) => {
   try {
     const { userId } = req;
     const favorites = await FavoriteArticle.findOne({ userId }).populate({
-      path: 'articleList.articleId',
+      path: 'articleList',
       model: 'Article',
     });
 
