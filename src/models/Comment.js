@@ -23,6 +23,10 @@ const commentSchema = new mongoose.Schema(
         userId: { type: mongoose.ObjectId, ref: User, required: true },
       },
     ],
+    isModified: {
+      type: Boolean,
+      default: false
+    }
   },
   { timestamps: true }
 );
