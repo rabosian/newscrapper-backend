@@ -50,6 +50,7 @@ export const updateComment = async (req, res) => {
           throw new Error('Only comment creator can update');
 
         findComment.contents = contents;
+        if (!findComment.isModified) findComment.isModified = true
         await findComment.save();
         res.status(200).json({ status: 'success', findComment });
       }
