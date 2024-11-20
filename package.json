@@ -22,7 +22,8 @@
     "google-auth-library": "^9.14.2",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.8.1",
-    "node-cron": "^3.0.3"
+    "node-cron": "^3.0.3",
+    "openai": "^4.72.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.7"
