@@ -25,7 +25,7 @@ const commentSchema = new mongoose.Schema(
     ],
     isEdited: {
       type: Boolean,
-      default: false
+      default: false,
     }
   },
   { timestamps: true }
