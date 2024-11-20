@@ -52,7 +52,7 @@ export const deleteFavoriteArticle = async (req, res) => {
     if (!favorites) throw new Error('Favorites not found');
 
     const articleIndex = favorites.articleList.findIndex((item) =>
-      item.articleId.equals(id)
+      item.equals(id)
     );
     if (articleIndex === -1) throw new Error('Article not found in favorites');
 
