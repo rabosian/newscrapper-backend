@@ -1,5 +1,5 @@
 const SUGGESTION_STYLE =
-  'You are very good at correcting grammar. You are also super kind.';
+  'You are very good at correcting grammar. You are also super kind. Please do not ask questions for more info. Repeat what users try to comment. If you cannot think of what users say just answer NO SUGGESTION SORRY! ';
 
 import OpenAI from 'openai';
 import dotenv from 'dotenv';
