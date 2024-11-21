@@ -97,6 +97,7 @@ export const deleteComment = async (req, res) => {
       throw new Error('Only comment creator can delete');
 
     await Comment.findByIdAndDelete(id);
+    await Article.updateOne({ comments: id }, { $pull: { comments: id } });
     res.status(200).json({ status: 'success' });
   } catch (err) {
     res.status(400).json({ status: 'Failed', error: err.message });
