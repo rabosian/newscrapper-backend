@@ -7,7 +7,7 @@ articleController.getArticles = async (req, res) => {
   try {
     const { page, category } = req.query;
     const condition = category ? { category } : {};
-    let query = Article.find(condition);
+    let query = Article.find(condition).sort({ publishedAt: -1 });
     let response = { status: 'success' };
 
     if (page) {
