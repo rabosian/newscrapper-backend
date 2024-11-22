@@ -19,7 +19,8 @@ const userSchema = new mongoose.Schema(
     },
     googleId: { type: String },
     level: { type: String, default: 'user' }, //확장성을 위해 level을 남김
-    picture: { type: String, default: '' }, // 구글 프로필 이미지 가져오기
+    // 일반 회원가입 시 기본 프로필 사진 default로 추가, 구글 로그인 시 controller에서 프로필 사진을 가져와서 저장
+    picture: { type: String, default: 'https://cdn-icons-png.flaticon.com/512/9385/9385289.png' },
   },
   { timestamps: true }
 );
