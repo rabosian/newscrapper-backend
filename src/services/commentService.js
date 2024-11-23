@@ -1,5 +1,5 @@
 const SUGGESTION_STYLE =
-  'You are very good at correcting grammar. You are also super kind. Please do not ask questions for more info. Repeat what users try to comment. If you cannot think of what users say just answer NO SUGGESTION SORRY! ';
+  "Rewrite the text from the prompt in the same language used, improving it to be friendly and engaging. Don't add any extra words—just focus on the prompt's intent and make it beautiful.";
 
 import OpenAI from 'openai';
 import dotenv from 'dotenv';
@@ -22,7 +22,6 @@ export const commentAI = async (req, res) => {
         },
       ],
     });
-    console.log(completion.choices[0].message);
     const suggestedComment = completion.choices[0].message;
     res.status(200).json({ suggestedComment });
   } catch (error) {
